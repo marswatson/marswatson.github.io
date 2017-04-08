@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-08T03:12:27.470Z</updated>
+  <updated>2017-04-08T18:13:36.979Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>first test article</title>
+    <link href="http://yoursite.com/2017/04/08/first-test-article/"/>
+    <id>http://yoursite.com/2017/04/08/first-test-article/</id>
+    <published>2017-04-08T04:15:30.000Z</published>
+    <updated>2017-04-08T18:13:36.979Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="My-hexo-is-installed"><a href="#My-hexo-is-installed" class="headerlink" title="My hexo is installed"></a>My hexo is installed</h1><p>Recently, my friends told me I can use hexo and github to make my blog, which can make me learn a new things more quickly.<br>So I installed it in my computer, hope it can help me to learn it.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;My-hexo-is-installed&quot;&gt;&lt;a href=&quot;#My-hexo-is-installed&quot; class=&quot;headerlink&quot; title=&quot;My hexo is installed&quot;&gt;&lt;/a&gt;My hexo is installed&lt;/h1&gt;&lt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-09T19:56:20.498Z</updated>
+  <updated>2017-04-09T19:58:29.559Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/04/09/caffe-basic-knowledge/"/>
     <id>http://yoursite.com/2017/04/09/caffe-basic-knowledge/</id>
     <published>2017-04-09T19:45:34.000Z</published>
-    <updated>2017-04-09T19:56:20.498Z</updated>
+    <updated>2017-04-09T19:58:29.559Z</updated>
     
     <content type="html"><![CDATA[<h1 id="some-caffe-basic-knowledge"><a href="#some-caffe-basic-knowledge" class="headerlink" title="some caffe basic knowledge"></a>some caffe basic knowledge</h1><p>For the caffe beginner, I find one article is really good for the beginner, it’s one <a href="http://manutdzou.github.io/2016/05/15/Caffe-Document.html" target="_blank" rel="external">chinese tutorial</a> but it explained caffe in detail.</p>
 <h2 id="data-and-parameter"><a href="#data-and-parameter" class="headerlink" title="data and parameter"></a>data and parameter</h2><p>To run caffe, it need a model, like Alexnet. And one model make up by many layers. And every layer make up by many parameters, allthe parameter are defined in caffe.proto file. So in order to learn caffe proficiently, we myst learn how to write prototxt file.</p>
@@ -32,6 +32,8 @@
     
     </summary>
     
+    
+      <category term="caffe" scheme="http://yoursite.com/tags/caffe/"/>
     
   </entry>
   

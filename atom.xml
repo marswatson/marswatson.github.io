@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-25T13:35:49.869Z</updated>
+  <updated>2017-04-25T13:48:23.077Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Some basic linux operation</title>
+    <link href="http://yoursite.com/2017/04/25/Some-basic-linux-operation/"/>
+    <id>http://yoursite.com/2017/04/25/Some-basic-linux-operation/</id>
+    <published>2017-04-25T13:39:22.000Z</published>
+    <updated>2017-04-25T13:48:23.077Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Some-basic-Linux-operation"><a href="#Some-basic-Linux-operation" class="headerlink" title="Some basic Linux operation"></a>Some basic Linux operation</h1><p>Find file</p>
+<ul>
+<li>find . -name “<em>spark</em>“</li>
+<li>which spark-submit</li>
+</ul>
+<p>Copy file</p>
+<ul>
+<li>cp xxx.jar /usr/lib/xxx/</li>
+</ul>
+<p>monitor cpu and memory usage</p>
+<ul>
+<li>sudo install htop</li>
+<li>htop</li>
+<li>quit htop with press button ‘p’</li>
+</ul>
+<p>make directory</p>
+<ul>
+<li>mkdir ~/spark/src/main/scala</li>
+</ul>
+<p>delete file</p>
+<ul>
+<li>rm /home/file</li>
+<li>rm -r /home/directory</li>
+</ul>
+<p>move file</p>
+<ul>
+<li>mv /test /home</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Some-basic-Linux-operation&quot;&gt;&lt;a href=&quot;#Some-basic-Linux-operation&quot; class=&quot;headerlink&quot; title=&quot;Some basic Linux operation&quot;&gt;&lt;/a&gt;Some bas
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>caffe face verification</title>

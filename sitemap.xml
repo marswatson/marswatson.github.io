@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/04/25/Some-basic-linux-operation/</loc>
+    
+    <lastmod>2017-04-25T13:48:23.077Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/04/25/caffe-face-verification/</loc>
     
     <lastmod>2017-04-25T13:35:49.869Z</lastmod>

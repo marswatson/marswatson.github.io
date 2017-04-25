@@ -249,6 +249,147 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/25/caffe-face-verification/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/myimage.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyuan's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/25/caffe-face-verification/" itemprop="url">
+                  caffe face verification
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-25T08:58:49-04:00">
+                2017-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Face-verification-by-fine-tune-neural-network-on-caffe"><a href="#Face-verification-by-fine-tune-neural-network-on-caffe" class="headerlink" title="Face verification by fine-tune neural network on caffe"></a>Face verification by fine-tune neural network on caffe</h1><p>Recently I am doing face verification project on caffe. The dataset I use is LFW. Here are the methods I use.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Face verification, which is the task of determining whether a pair of face images are from the same person, has been an active research topic in computer vision for decades. It has many important applications, including surveillance, access control, image retrieval, and automatic log-on for personal computer or mobile devices. </p>
+<p>The Labeled Faces in the Wild (LFW) is a database of face photographs designed for studying the problem of unconstrained face recognition. The data set contains more than 13,000 images of faces collected from the web. Each face has been labeled with the name of the person pictured. And in this project, I used this aligned with funneling database to do face verification .</p>
+<p>Alexnet and VGG net are two famous neural networks. There are mainly used in image classification, but we also can use the features that the neural work extracted to do face verification. And then use euclidean distance to produce scores for the pair image. In this project, I used both with and without fine-tuning neural network to extract the features. And I used caffe python wrapper to do this project. </p>
+<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><h3 id="without-fine-tune-Face-Verification-Process"><a href="#without-fine-tune-Face-Verification-Process" class="headerlink" title="without fine-tune Face Verification Process"></a>without fine-tune Face Verification Process</h3><p>In this project, our goal is to find the face feature, then compute the face pairs features. The process of this project is showed in here. </p>
+<p><img src="../images/caffe-face-verification/face_1.png" alt="process 1"></p>
+<p>Suppose our dataset have N pairs of face image, for each of face pair, we put each face pass through the neural network, then get this face pair’s feature and compute euclidean distance. And totally we can have N face pairs score. Based on these faces pairs, we can label the match pair with 1 and mismatch pair with 0. After we have these pairs scores and labels, we can plot the ROC curve for face verification.  </p>
+<h3 id="fine-tune-face-verification"><a href="#fine-tune-face-verification" class="headerlink" title="fine-tune face verification"></a>fine-tune face verification</h3><p>We fine-tune neural network by creating the new neural network as Figure\ref{Fine-tune Neural Network} showed which based on siamese network\cite{c5}.This kind of siamese neural network usually used in verification project. </p>
+<p><img src="../images/caffe-face-verification/face_2.png" alt="process 2"></p>
+<p>Suppose neural network A and neural network A’ are same network structure (both Alexnet or both VGG net) without softmax layer. We change the input into face pair dataset. And use input pair and label to train the neural network. The Contrastive Loss Layer is typically used to train siamese networks.</p>
+<p>After finish trained siamese networks, save the neural network A’s weights and apply it into Alexnet or VGG net. Based on the fine-tune network weight, do the do the face verification same as previous section.</p>
+<h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><p>In this project, I use caffe python wrapper.</p>
+<h3 id="Alexnet-and-VGG-net-fine-tuned-model"><a href="#Alexnet-and-VGG-net-fine-tuned-model" class="headerlink" title="Alexnet and VGG net fine-tuned model"></a>Alexnet and VGG net fine-tuned model</h3><p>To build the fine-tuned neural network model, I changed the “train_val.prototxt” file. Because caffe can draw the network, so after I changed the file, I draw the neural network. The neural network structure is showed here.</p>
+<p><img src="../images/caffe-face-verification/twoalexnet.jpg" alt="two alex"></p>
+<p><img src="../images/caffe-face-verification/twovgg16.jpg" alt="two vgg"></p>
+<h3 id="Face-features-from-Different-caffe-model"><a href="#Face-features-from-Different-caffe-model" class="headerlink" title="Face features from Different caffe model"></a>Face features from Different caffe model</h3><p>In this project, I totally used two caffe model each with two different weight. I test let some face pass this 4 neural network, and visualized its features after first convolution layer. </p>
+<p>Here is one example on fine-tuned alexnet.</p>
+<p><img src="../images/caffe-face-verification/alex_finetune_feature.png" alt="fine tuned alexnet feature"></p>
+<h3 id="ROC-curve-results"><a href="#ROC-curve-results" class="headerlink" title="ROC curve results"></a>ROC curve results</h3><p>After we get these fine-tuned and without fine-tuned model, we can let the face pair pass these network, and extract the last fully connected layers, then compute the euclidean distance between face pairs. And this will help us get the scores for each face pair. </p>
+<p>The final result for this face verification project is showed in below.<br>From the figure, we can see that the both Alexnet and Vgg net with fine-tuned weights have better performance. It prove that the neural network model after trained can increase the face verification accuracy. And we also can see that from the figure, fine-tuned vgg is better that the fine-tune alexnet, this is may caused by the vgg network have more complicate structure, it learning ability is stronger than the Alexnet. This is similar to that in image classification, vgg have better performance than alexnet. However, when both network without fine-tune, they have nearly the same performance. This may caused by that neural network was initially designed to do classification job, so they might have similar ability in face verification.</p>
+<p><img src="../images/caffe-face-verification/ROC_Curve.png" alt="ROC curve"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/09/caffe-basic-knowledge/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -794,7 +935,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -807,7 +948,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

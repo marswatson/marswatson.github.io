@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-26T18:31:25.431Z</updated>
+  <updated>2017-05-26T18:32:34.686Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/05/26/Deep-Learning-Neural-Style-Transfer/"/>
     <id>http://yoursite.com/2017/05/26/Deep-Learning-Neural-Style-Transfer/</id>
     <published>2017-05-26T17:27:45.000Z</published>
-    <updated>2017-05-26T18:31:25.431Z</updated>
+    <updated>2017-05-26T18:32:34.686Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Deep-Learning-Neural-Style-Transfer"><a href="#Deep-Learning-Neural-Style-Transfer" class="headerlink" title="Deep Learning: Neural Style Transfer"></a>Deep Learning: Neural Style Transfer</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In the art field, especially painting, human always tried make the impressive art work. In our daily life, we take picture every day, but some of them may not attractive. So we can use this deep learning knowledge to make the machine can learn the famous painting feature and style, then combine the content with our own image which may produce a new fashion image. </p>
 <p>This neural style transfer paper \cite{c1} first been released in 2015. Since the release of the Neural Style paper, there have been a number of applications that used it to apply stylistic transfers from one image to another. And the most famous one is Prisma. The innovation of this project is based on it. So in this project I transfered image to art style by using the VGG neural networks which we have discussion in the class.</p>

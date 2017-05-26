@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-25T13:48:23.077Z</updated>
+  <updated>2017-05-26T17:27:45.127Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Deep Learning: Neural Style Transfer</title>
+    <link href="http://yoursite.com/2017/05/26/Deep-Learning-Neural-Style-Transfer/"/>
+    <id>http://yoursite.com/2017/05/26/Deep-Learning-Neural-Style-Transfer/</id>
+    <published>2017-05-26T17:27:45.000Z</published>
+    <updated>2017-05-26T17:27:45.127Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Some basic linux operation</title>
@@ -66,7 +80,7 @@
     <link href="http://yoursite.com/2017/04/25/caffe-face-verification/"/>
     <id>http://yoursite.com/2017/04/25/caffe-face-verification/</id>
     <published>2017-04-25T12:58:49.000Z</published>
-    <updated>2017-04-25T13:35:49.869Z</updated>
+    <updated>2017-05-26T17:38:41.074Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Face-verification-by-fine-tune-neural-network-on-caffe"><a href="#Face-verification-by-fine-tune-neural-network-on-caffe" class="headerlink" title="Face verification by fine-tune neural network on caffe"></a>Face verification by fine-tune neural network on caffe</h1><p>Recently I am doing face verification project on caffe. The dataset I use is LFW. Here are the methods I use.</p>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Face verification, which is the task of determining whether a pair of face images are from the same person, has been an active research topic in computer vision for decades. It has many important applications, including surveillance, access control, image retrieval, and automatic log-on for personal computer or mobile devices. </p>
@@ -75,7 +89,7 @@
 <h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><h3 id="without-fine-tune-Face-Verification-Process"><a href="#without-fine-tune-Face-Verification-Process" class="headerlink" title="without fine-tune Face Verification Process"></a>without fine-tune Face Verification Process</h3><p>In this project, our goal is to find the face feature, then compute the face pairs features. The process of this project is showed in here. </p>
 <p><img src="../images/caffe-face-verification/face_1.png" alt="process 1"></p>
 <p>Suppose our dataset have N pairs of face image, for each of face pair, we put each face pass through the neural network, then get this face pair’s feature and compute euclidean distance. And totally we can have N face pairs score. Based on these faces pairs, we can label the match pair with 1 and mismatch pair with 0. After we have these pairs scores and labels, we can plot the ROC curve for face verification.  </p>
-<h3 id="fine-tune-face-verification"><a href="#fine-tune-face-verification" class="headerlink" title="fine-tune face verification"></a>fine-tune face verification</h3><p>We fine-tune neural network by creating the new neural network as Figure\ref{Fine-tune Neural Network} showed which based on siamese network\cite{c5}.This kind of siamese neural network usually used in verification project. </p>
+<h3 id="fine-tune-face-verification"><a href="#fine-tune-face-verification" class="headerlink" title="fine-tune face verification"></a>fine-tune face verification</h3><p>We fine-tune neural network by creating the new neural network as Figure below showed which based on siamese network.This kind of siamese neural network usually used in verification project. </p>
 <p><img src="../images/caffe-face-verification/face_2.png" alt="process 2"></p>
 <p>Suppose neural network A and neural network A’ are same network structure (both Alexnet or both VGG net) without softmax layer. We change the input into face pair dataset. And use input pair and label to train the neural network. The Contrastive Loss Layer is typically used to train siamese networks.</p>
 <p>After finish trained siamese networks, save the neural network A’s weights and apply it into Alexnet or VGG net. Based on the fine-tune network weight, do the do the face verification same as previous section.</p>

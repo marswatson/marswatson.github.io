@@ -249,6 +249,126 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/26/Deep-Learning-Neural-Style-Transfer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/myimage.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyuan's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/26/Deep-Learning-Neural-Style-Transfer/" itemprop="url">
+                  Deep Learning: Neural Style Transfer
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-26T13:27:45-04:00">
+                2017-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/25/Some-basic-linux-operation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -481,7 +601,7 @@
 <h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><h3 id="without-fine-tune-Face-Verification-Process"><a href="#without-fine-tune-Face-Verification-Process" class="headerlink" title="without fine-tune Face Verification Process"></a>without fine-tune Face Verification Process</h3><p>In this project, our goal is to find the face feature, then compute the face pairs features. The process of this project is showed in here. </p>
 <p><img src="../images/caffe-face-verification/face_1.png" alt="process 1"></p>
 <p>Suppose our dataset have N pairs of face image, for each of face pair, we put each face pass through the neural network, then get this face pair’s feature and compute euclidean distance. And totally we can have N face pairs score. Based on these faces pairs, we can label the match pair with 1 and mismatch pair with 0. After we have these pairs scores and labels, we can plot the ROC curve for face verification.  </p>
-<h3 id="fine-tune-face-verification"><a href="#fine-tune-face-verification" class="headerlink" title="fine-tune face verification"></a>fine-tune face verification</h3><p>We fine-tune neural network by creating the new neural network as Figure\ref{Fine-tune Neural Network} showed which based on siamese network\cite{c5}.This kind of siamese neural network usually used in verification project. </p>
+<h3 id="fine-tune-face-verification"><a href="#fine-tune-face-verification" class="headerlink" title="fine-tune face verification"></a>fine-tune face verification</h3><p>We fine-tune neural network by creating the new neural network as Figure below showed which based on siamese network.This kind of siamese neural network usually used in verification project. </p>
 <p><img src="../images/caffe-face-verification/face_2.png" alt="process 2"></p>
 <p>Suppose neural network A and neural network A’ are same network structure (both Alexnet or both VGG net) without softmax layer. We change the input into face pair dataset. And use input pair and label to train the neural network. The Contrastive Loss Layer is typically used to train siamese networks.</p>
 <p>After finish trained siamese networks, save the neural network A’s weights and apply it into Alexnet or VGG net. Based on the fine-tune network weight, do the do the face verification same as previous section.</p>
@@ -1083,7 +1203,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="-tensorflow -deeplearning," />
 
 
 
@@ -89,14 +89,33 @@
 
 
 
-<meta name="keywords">
+<meta name="description" content="Deep Learning: Neural Style TransferIntroductionIn the art field, especially painting, human always tried make the impressive art work. In our daily life, we take picture every day, but some of them m">
+<meta name="keywords" content="-tensorflow -deeplearning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Deep Learning: Neural Style Transfer">
 <meta property="og:url" content="http://yoursite.com/2017/05/26/Deep-Learning-Neural-Style-Transfer/index.html">
 <meta property="og:site_name" content="Siyuan's Blog">
-<meta property="og:updated_time" content="2017-05-26T17:27:45.127Z">
+<meta property="og:description" content="Deep Learning: Neural Style TransferIntroductionIn the art field, especially painting, human always tried make the impressive art work. In our daily life, we take picture every day, but some of them m">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/prisma.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/vgg.png">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Large Loss_{content} = \frac{1}{2}(F^l-P^l)^2">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/1-style.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/IMG1.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/test500.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/test1000.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/test1500.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/test2000.jpg">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Large E_l = \frac{1}{N^2_l}(G_l - A_l)^2">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Large Loss_{style} = \sum_{l=0}^L w_lE_l">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Large Loss_{total} = \alpha Loss_{content} + \beta Loss_{Style}">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/4-style.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/IMG2.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/%7B2test1000.jpg">
+<meta property="og:updated_time" content="2017-05-26T18:22:23.139Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning: Neural Style Transfer">
+<meta name="twitter:description" content="Deep Learning: Neural Style TransferIntroductionIn the art field, especially painting, human always tried make the impressive art work. In our daily life, we take picture every day, but some of them m">
+<meta name="twitter:image" content="http://yoursite.com/2017/05/26/images/neural-style-transfer/prisma.jpg">
 
 
 
@@ -321,7 +340,44 @@
       
 
       
-        
+        <h1 id="Deep-Learning-Neural-Style-Transfer"><a href="#Deep-Learning-Neural-Style-Transfer" class="headerlink" title="Deep Learning: Neural Style Transfer"></a>Deep Learning: Neural Style Transfer</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In the art field, especially painting, human always tried make the impressive art work. In our daily life, we take picture every day, but some of them may not attractive. So we can use this deep learning knowledge to make the machine can learn the famous painting feature and style, then combine the content with our own image which may produce a new fashion image. </p>
+<p>This neural style transfer paper \cite{c1} first been released in 2015. Since the release of the Neural Style paper, there have been a number of applications that used it to apply stylistic transfers from one image to another. And the most famous one is Prisma. The innovation of this project is based on it. So in this project I transfered image to art style by using the VGG neural networks which we have discussion in the class.</p>
+<p><img src="../images/neural-style-transfer/prisma.jpg" alt="prisma"></p>
+<h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><p>This neural style transfer used neural network implementation to learn the art paintings, and then combined the content information to create new image.</p>
+<h3 id="VGG-Neural-Network"><a href="#VGG-Neural-Network" class="headerlink" title="VGG Neural Network"></a>VGG Neural Network</h3><p>Before we want to do our project, we must learn what is the neural network. Because in this project, we used this VGG neural network.<br>VGG neural network is one of famous convolution neural network because of its good performance compare to other neural network structure. The convolution neural network can be seem as two part. The first is convolution layer part, the second is fully connected layer part. You can see vgg structure from Figure below.</p>
+<p><img src="../images/neural-style-transfer/vgg.png" alt="VGG network"></p>
+<p>When we applied image to neural network, we can seem that the convolution layer will produce the feature of image. And the fully connected layer can be seem as the classifier with input the feature vector. Because in this project, our goal is not to do image classification, we only want to use the feature vector of image. So we can ignore the fully connect layer part. </p>
+<p>In this project, we used the VGG19 structure, which totally contain the 16 convolution layers, 5 pooling layers, 3 fully connected layers. We will use the pre-trained VGG network to do this project.</p>
+<h3 id="Create-Image"><a href="#Create-Image" class="headerlink" title="Create Image"></a>Create Image</h3><p>The main idea of create image are minimize the loss function of content information and style information.</p>
+<h4 id="Content-Image-Transfer"><a href="#Content-Image-Transfer" class="headerlink" title="Content Image Transfer"></a>Content Image Transfer</h4><p>Suppose our content image $x$ passed the neural network. The response of every convolution layer $l$ will get the feature map $F^l$. Then we need to find new image $p$ which also pass the same neural network, in the same convolution layer $l$ will get new feature map $P^l$. The image $p$ first was generate as white noise image. Then we apply gradient descent on this white noise image to find another image that matches the feature response of the original image. So we can defined original image and generated image as $x$ and $p$, then find its image response at layer $l$, which is $F^l$ and $P^l$. And defined the squared-error loss between this two feature map.</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Large Loss_{content} = \frac{1}{2}(F^l-P^l)^2" style="border:none;"></p>
+<h4 id="Style-Image-Transfer"><a href="#Style-Image-Transfer" class="headerlink" title="Style Image Transfer"></a>Style Image Transfer</h4><p>In this step only want to get the style image style representation. And in the convolution layer, suppose its output channel number is $N$, then the input image in this convolution layer $l$ will have N filter feature response. And this style representation can be compute the correlations between the different filter response. And this feature correlation are given by the Gram Matrix $G<em>l \in R^{(N^l \times N^l)}$, and $G</em>{ij}$ is the inner product between the vectorised feature map.</p>
+<p><img src="../images/neural-style-transfer/1-style.jpg" alt="1-style"><br><img src="../images/neural-style-transfer/IMG1.jpg" alt="IMG1"><br>neural style transfer example</p>
+<p><img src="../images/neural-style-transfer/test500.jpg" alt="test500"><br>500 iteration</p>
+<p><img src="../images/neural-style-transfer/test1000.jpg" alt="test1000"><br>1000 iteration</p>
+<p><img src="../images/neural-style-transfer/test1500.jpg" alt="test1500"><br>1500 iteration</p>
+<p><img src="../images/neural-style-transfer/test2000.jpg" alt="test2000"><br>2000 iteration</p>
+<p>To generate texture match the style image, we use same method as create content image. We also use gradient descent from a white noise image to find another image that match style representation of original style image. This is done by minimising the mean-squared distance between the entries of the Gram matrix $G_l$ from original image and the Gram matrix $A_l$ of image to be generated. Then give the weight to each layer output error, and sum them all to get the total loss of style.</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Large E_l = \frac{1}{N^2_l}(G_l - A_l)^2" style="border:none;"></p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Large Loss_{style} = \sum_{l=0}^L w_lE_l" style="border:none;"></p>
+<p>After above steps, we can combine the content loss and style loss to get total loss. $\alpha$ and $\beta$ is the weight parameter for content loss and style loss. </p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Large Loss_{total} = \alpha Loss_{content} + \beta Loss_{Style}" style="border:none;"></p>
+<h2 id="Experiment-Result"><a href="#Experiment-Result" class="headerlink" title="Experiment Result"></a>Experiment Result</h2><p>I implement this neural style transfer image as above illustrated by tensorflow. </p>
+<p>Here is the some example of my experiment. I set the $\frac{\alpha}{ \beta}$ to 0.01, and use average pooling instead of max pooling in the VGG network. Because in the paper\cite{c1} the author find average pooling improves the gradient flow and one obtains slightly more appealing result. The content layer I use is $conv4_1$. For the style layer, I use all five convolution layer and set the equal weight to $E_l$.</p>
+<p>Figure\ref{fig:input1} is the input image for our program, one is the style image and one is content image. Figure\ref{fig:output1} is the neural transfered image. From the above results, we can see that with increase of iterations, the neural style image have better quality. </p>
+<p>Figure \ref{style 2} \ref{img2} \ref{Output2} is another result of my project. And this output image is more beautiful compare to the previous example.</p>
+<p><img src="../images/neural-style-transfer/4-style.jpg" alt="4-style"><br>Style Image</p>
+<p><img src="../images/neural-style-transfer/IMG2.jpg" alt="IMG2"><br>Content Image New York</p>
+<p><img src="../images/neural-style-transfer/{2test1000.jpg" alt="IMG2"><br>Output image</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In this project, I tried to implement the neural style transfer algorithm. This let me have better understanding on the neural network. Besides, I also learned the technology behind this cool work. Although this neural transfer algorithm heard likes difficult, but the principle behind it is not too hard.</p>
+<p>There are also many future work we can do. Such when we want to transfer an image, we can segment the image to different part, and use different style to different part. </p>
+<p>There are also some drawback of this project. Every time when we want to generate new image, it takes lots of time to generate one. So if we want to use this algorithm in our life, we must consider this properties.</p>
+<h3 id="Stuff-used-to-make-this"><a href="#Stuff-used-to-make-this" class="headerlink" title="Stuff used to make this:"></a>Stuff used to make this:</h3><ul>
+<li>[paper1] L. A. Gatys, A. S. Ecker, and M. Bethge. A neural algorithm<br>of artistic style. arXiv preprint arXiv:1508.06576, 2015.</li>
+<li>[Gram Matrix] (<a href="https://en.wikipedia.org/wiki/Gramian_matrix" target="_blank" rel="external">https://en.wikipedia.org/wiki/Gramian_matrix</a>)</li>
+<li>[Github code] (<a href="https://github.com/dankogai/js-deflate" target="_blank" rel="external">https://github.com/dankogai/js-deflate</a>)</li>
+</ul>
+
       
     </div>
 
@@ -347,6 +403,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tensorflow-deeplearning/" rel="tag"># -tensorflow -deeplearning</a>
+          
+        </div>
       
 
       
@@ -412,8 +474,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/myimage.jpg"
@@ -441,7 +512,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -473,6 +544,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Learning-Neural-Style-Transfer"><span class="nav-number">1.</span> <span class="nav-text">Deep Learning: Neural Style Transfer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Method"><span class="nav-number">1.2.</span> <span class="nav-text">Method</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VGG-Neural-Network"><span class="nav-number">1.2.1.</span> <span class="nav-text">VGG Neural Network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-Image"><span class="nav-number">1.2.2.</span> <span class="nav-text">Create Image</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Content-Image-Transfer"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Content Image Transfer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Style-Image-Transfer"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Style Image Transfer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Experiment-Result"><span class="nav-number">1.3.</span> <span class="nav-text">Experiment Result</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.4.</span> <span class="nav-text">Conclusion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Stuff-used-to-make-this"><span class="nav-number">1.4.1.</span> <span class="nav-text">Stuff used to make this:</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
